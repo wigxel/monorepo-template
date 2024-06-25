@@ -2,6 +2,7 @@
   "extends": ["@repo/typescript-config/base.json", "./.nitro/types/tsconfig.json"],
   "compilerOptions": {
     "types": ["vitest/globals"],
+    "noEmit": true,
     "paths": {
       "~/*": ["./*"]
     }

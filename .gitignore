@@ -2,6 +2,7 @@
 
 .idea
 .vscode
+.zed
 
 # Dependencies
 node_modules
