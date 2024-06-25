@@ -1,0 +1,7 @@
+node_modules/
+.github/
+.husky/
+.idea/
+pnpm-lock.yaml
+netlify.toml
+apps/nextjs/src/routeTree.gen.ts

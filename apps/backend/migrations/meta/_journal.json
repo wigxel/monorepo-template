@@ -1,0 +1,48 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1717371817090,
+      "tag": "0000_keen_mentallo",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1717375350526,
+      "tag": "0001_broad_sumo",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1718584925386,
+      "tag": "0002_complex_giant_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1718586011872,
+      "tag": "0003_glorious_smasher",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1718586580383,
+      "tag": "0004_many_killmonger",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1718588051003,
+      "tag": "0005_overconfident_turbo",
+      "breakpoints": true
+    }
+  ]
+}
