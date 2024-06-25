@@ -1,5 +1,4 @@
 import { Match } from "effect";
-// @ts-expect-error
 import { H3Event } from "h3";
 
 export function resolveErrorResponse<TEvent extends H3Event<unknown>>(

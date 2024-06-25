@@ -1,7 +1,7 @@
 import { Context, Effect, Either, Layer } from "effect";
 import { UnknownException } from "effect/Cause";
 import type { Session as LuciaSession, User as LuciaUser } from "lucia";
-import { NewModelDatabase } from "~/config/database";
+import { DatabaseClient } from "~/config/database";
 import { TeamMember, User } from "~/dtos/user.dto";
 import { runDrizzleQuery } from "~/libs/query.helpers";
 import { customerAuth, teamAuth } from "~/services/auth.service";
@@ -11,13 +11,13 @@ type SessionError = UnknownException | Error;
 interface SessionImpl {
 	getUser(user: {
 		id: string;
-	}): Effect.Effect<TeamMember | User | null, SessionError, NewModelDatabase>;
+	}): Effect.Effect<TeamMember | User | null, SessionError, DatabaseClient>;
 
 	create(
 		user_id: string,
 	): Effect.Effect<
 		{ session_id: string; expires_at: Date },
-		SessionError | NewModelDatabase
+		SessionError | DatabaseClient
 	>;
 
 	validate(
@@ -25,7 +25,7 @@ interface SessionImpl {
 	): Effect.Effect<
 		Either.Either<{ session: LuciaSession; user: LuciaUser }, string>,
 		SessionError,
-		NewModelDatabase
+		DatabaseClient
 	>;
 
 	invalidate(token: string): Effect.Effect<void>;

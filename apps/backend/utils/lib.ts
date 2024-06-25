@@ -1,6 +1,5 @@
 import { Console, Effect, flow } from "effect";
 import { pipe } from "effect/Function";
-// @ts-expect-error
 import { H3Event } from "h3";
 import { is, tap } from "ramda";
 import { SafeParseReturnType } from "zod";

@@ -5,7 +5,7 @@ import { Console, Effect, Option } from "effect";
 import { head } from "effect/Array";
 import { UnknownException } from "effect/Cause";
 import { is } from "ramda";
-import { DrizzlePgDatabase, NewModelDatabase } from "~/config/database";
+import { DrizzlePgDatabase, DatabaseClient } from "~/config/database";
 import { QueryError } from "~/config/exceptions";
 
 export const resolveQueryError = (err: unknown) => {
@@ -65,7 +65,7 @@ export function queryEqualMap<T extends TableConfig>(
 }
 
 export function runDrizzleQuery<T>(fn: (a: DrizzlePgDatabase) => Promise<T>) {
-	return NewModelDatabase.pipe(
+	return DatabaseClient.pipe(
 		Effect.flatMap((db) => tryQuery(() => fn(db))),
 		Effect.map((a) => a as T),
 	);

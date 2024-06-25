@@ -10,8 +10,8 @@ export const drizzleClient = drizzle(vbb, {
 	schema,
 });
 
-export class NewModelDatabase extends Context.Tag("NewModelDatabase")<
-	NewModelDatabase,
+export class DatabaseClient extends Context.Tag("Database")<
+	DatabaseClient,
 	DrizzlePgDatabase
 >() {}
 

@@ -111,49 +111,47 @@ export function logout({ access_token }: { access_token: string }) {
 }
 
 export function login({ body }: { body: { email: string; password: string } }) {
-	return Effect.suspend(() =>
-		Effect.gen(function* (_) {
-			const session = yield* Session;
-			const auth_user = yield* AuthUser;
+	return Effect.gen(function* (_) {
+		const session = yield* Session;
+		const auth_user = yield* AuthUser;
 
-			const error = createError({
-				message: "Invalid username or password provided",
-				status: 422,
-			});
+		const error = createError({
+			message: "Invalid username or password provided",
+			status: 422,
+		});
 
-			yield* _(Effect.logDebug("Getting authenticated User"));
-			const user = yield* _(
-				pipe(
-					auth_user.getUserRecord({ email: body.email }),
-					Effect.mapError(() => error),
-				),
-			);
+		yield* _(Effect.logDebug("Getting authenticated User"));
+		const user = yield* _(
+			pipe(
+				auth_user.getUserRecord({ email: body.email }),
+				Effect.mapError(() => error),
+			),
+		);
 
-			yield* _(Effect.logDebug("Verify password"));
-			const isMatch = yield* _(
-				Effect.tryPromise(() =>
-					verifyPassword(body.password, user?.password ?? ""),
-				),
-			);
+		yield* _(Effect.logDebug("Verify password"));
+		const isMatch = yield* _(
+			Effect.tryPromise(() =>
+				verifyPassword(body.password, user?.password ?? ""),
+			),
+		);
 
-			if (isMatch._tag === "Left") {
-				return yield* _(Effect.fail(error));
-			}
+		if (isMatch._tag === "Left") {
+			return yield* _(Effect.fail(error));
+		}
 
-			yield* _(Effect.logDebug("Creating session"));
-			const { session_id, expires_at } = yield* _(
-				session.create(user.user_id).pipe(Effect.mapError(() => error)),
-			);
+		yield* _(Effect.logDebug("Creating session"));
+		const { session_id, expires_at } = yield* _(
+			session.create(user.user_id).pipe(Effect.mapError(() => error)),
+		);
 
-			yield* _(Effect.logDebug("Session created"));
+		yield* _(Effect.logDebug("Session created"));
 
-			return {
-				message: "Login successful",
-				data: {
-					access_token: session_id,
-					expires: expires_at.toISOString(),
-				},
-			};
-		}),
-	);
+		return {
+			message: "Login successful",
+			data: {
+				access_token: session_id,
+				expires: expires_at.toISOString(),
+			},
+		};
+	});
 }

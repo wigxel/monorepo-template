@@ -1,8 +1,8 @@
-import { Effect } from "effect";
-import { defineEventHandler } from "h3";
+import { Effect, Layer } from "effect";
 import { z } from "zod";
 import { resolveErrorResponse } from "~/libs/response";
 
+import { AppLive } from "~/config/app";
 import { ValidationError } from "~/config/exceptions";
 import { CustomerLive } from "~/layers/customer";
 import { login } from "~/services/auth.service";
@@ -20,9 +20,8 @@ export default defineEventHandler(async (event) => {
 	}
 
 	const body = result.data as Required<typeof result.data>;
+	const requirements = AppLive.pipe(Layer.provideMerge(CustomerLive));
+	const program = login({ body });
 
-	return runPromise(
-		event,
-		Effect.provide(Effect.scoped(login({ body })), CustomerLive),
-	);
+	return runPromise(event, Effect.provide(program, requirements));
 });

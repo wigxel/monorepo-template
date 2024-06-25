@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { ConfigProvider, Console, Effect, Exit, Layer } from "effect";
 import { AppLive } from "~/config/app";
-import { DatabaseResource, NewModelDatabase } from "~/config/database";
+import { DatabaseResource, DatabaseClient } from "~/config/database";
 import { CategoryRepo } from "~/repositories/category.repository";
 import {
 	MeasureRepo,
@@ -126,7 +126,7 @@ const startMigration = Effect.gen(function* (_) {
 
 	return yield* Effect.try(() => {
 		return orm.transaction(async (tx) => {
-			const TxModelDatabase = Layer.succeed(NewModelDatabase, tx);
+			const TxModelDatabase = Layer.succeed(DatabaseClient, tx);
 			const runSeeds = Effect.all([
 				seedCategories,
 				seedIngredients,
