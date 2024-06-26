@@ -3,11 +3,11 @@ import { z } from "zod";
 import { user } from "~/migrations/schema";
 
 export default {
-	createUser: z.object({
-		firstName: z.string().min(3).max(20),
-		lastName: z.string().min(3).max(20),
-		email: z.string().email(),
-	}).parse,
+  createUser: z.object({
+    firstName: z.string().min(3).max(20),
+    lastName: z.string().min(3).max(20),
+    email: z.string().email(),
+  }).parse,
 };
 
 const selectUser = createSelectSchema(user);

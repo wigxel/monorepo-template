@@ -24,9 +24,7 @@
       "indexes": {
         "Category_label_key": {
           "name": "Category_label_key",
-          "columns": [
-            "label"
-          ],
+          "columns": ["label"],
           "isUnique": true
         }
       },
@@ -54,17 +52,12 @@
       "indexes": {
         "_CategoryToMeal_AB_unique": {
           "name": "_CategoryToMeal_AB_unique",
-          "columns": [
-            "A",
-            "B"
-          ],
+          "columns": ["A", "B"],
           "isUnique": true
         },
         "_CategoryToMeal_B_index": {
           "name": "_CategoryToMeal_B_index",
-          "columns": [
-            "B"
-          ],
+          "columns": ["B"],
           "isUnique": false
         }
       },
@@ -73,12 +66,8 @@
           "name": "_CategoryToMeal_A_Category_id_fk",
           "tableFrom": "_CategoryToMeal",
           "tableTo": "Category",
-          "columnsFrom": [
-            "A"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["A"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "cascade"
         },
@@ -86,12 +75,8 @@
           "name": "_CategoryToMeal_B_Meal_id_fk",
           "tableFrom": "_CategoryToMeal",
           "tableTo": "Meal",
-          "columnsFrom": [
-            "B"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["B"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "cascade"
         }
@@ -128,12 +113,8 @@
           "name": "Favourite_mealId_Meal_id_fk",
           "tableFrom": "Favourite",
           "tableTo": "Meal",
-          "columnsFrom": [
-            "mealId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["mealId"],
+          "columnsTo": ["id"],
           "onDelete": "restrict",
           "onUpdate": "cascade"
         },
@@ -141,12 +122,8 @@
           "name": "Favourite_userId_User_id_fk",
           "tableFrom": "Favourite",
           "tableTo": "User",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
           "onDelete": "restrict",
           "onUpdate": "cascade"
         }
@@ -174,9 +151,7 @@
       "indexes": {
         "Ingredient_name_key": {
           "name": "Ingredient_name_key",
-          "columns": [
-            "name"
-          ],
+          "columns": ["name"],
           "isUnique": true
         }
       },
@@ -241,9 +216,7 @@
       "indexes": {
         "Meal_name_key": {
           "name": "Meal_name_key",
-          "columns": [
-            "name"
-          ],
+          "columns": ["name"],
           "isUnique": true
         }
       },
@@ -271,17 +244,12 @@
       "indexes": {
         "_MealToRecipe_B_index": {
           "name": "_MealToRecipe_B_index",
-          "columns": [
-            "B"
-          ],
+          "columns": ["B"],
           "isUnique": false
         },
         "_MealToRecipe_AB_unique": {
           "name": "_MealToRecipe_AB_unique",
-          "columns": [
-            "A",
-            "B"
-          ],
+          "columns": ["A", "B"],
           "isUnique": true
         }
       },
@@ -290,12 +258,8 @@
           "name": "_MealToRecipe_A_Meal_id_fk",
           "tableFrom": "_MealToRecipe",
           "tableTo": "Meal",
-          "columnsFrom": [
-            "A"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["A"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "cascade"
         },
@@ -303,12 +267,8 @@
           "name": "_MealToRecipe_B_Recipe_id_fk",
           "tableFrom": "_MealToRecipe",
           "tableTo": "Recipe",
-          "columnsFrom": [
-            "B"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["B"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "cascade"
         }
@@ -356,16 +316,12 @@
       "indexes": {
         "Measurement_unit_key": {
           "name": "Measurement_unit_key",
-          "columns": [
-            "unit"
-          ],
+          "columns": ["unit"],
           "isUnique": true
         },
         "Measurement_si_unit_key": {
           "name": "Measurement_si_unit_key",
-          "columns": [
-            "si_unit"
-          ],
+          "columns": ["si_unit"],
           "isUnique": true
         }
       },
@@ -503,12 +459,8 @@
           "name": "QuestionOption_questionId_Question_id_fk",
           "tableFrom": "QuestionOption",
           "tableTo": "Question",
-          "columnsFrom": [
-            "questionId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["questionId"],
+          "columnsTo": ["id"],
           "onDelete": "restrict",
           "onUpdate": "cascade"
         }
@@ -610,12 +562,8 @@
           "name": "RecipeIngredient_measurementId_Measurement_id_fk",
           "tableFrom": "RecipeIngredient",
           "tableTo": "Measurement",
-          "columnsFrom": [
-            "measurementId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["measurementId"],
+          "columnsTo": ["id"],
           "onDelete": "restrict",
           "onUpdate": "cascade"
         },
@@ -623,12 +571,8 @@
           "name": "RecipeIngredient_ingredientId_Ingredient_id_fk",
           "tableFrom": "RecipeIngredient",
           "tableTo": "Ingredient",
-          "columnsFrom": [
-            "ingredientId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["ingredientId"],
+          "columnsTo": ["id"],
           "onDelete": "restrict",
           "onUpdate": "cascade"
         },
@@ -636,12 +580,8 @@
           "name": "RecipeIngredient_recipeId_Recipe_id_fk",
           "tableFrom": "RecipeIngredient",
           "tableTo": "Recipe",
-          "columnsFrom": [
-            "recipeId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["recipeId"],
+          "columnsTo": ["id"],
           "onDelete": "restrict",
           "onUpdate": "cascade"
         },
@@ -649,12 +589,8 @@
           "name": "RecipeIngredient_alternativeOfId_fkey",
           "tableFrom": "RecipeIngredient",
           "tableTo": "RecipeIngredient",
-          "columnsFrom": [
-            "alternativeOfId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["alternativeOfId"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "cascade"
         }
@@ -715,12 +651,8 @@
           "name": "RecipeStep_recipeId_Recipe_id_fk",
           "tableFrom": "RecipeStep",
           "tableTo": "Recipe",
-          "columnsFrom": [
-            "recipeId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["recipeId"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "cascade"
         }
@@ -757,12 +689,8 @@
           "name": "SessionCustomer_userId_User_id_fk",
           "tableFrom": "SessionCustomer",
           "tableTo": "User",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "cascade"
         }
@@ -799,12 +727,8 @@
           "name": "SessionOrg_user_id_TeamMember_id_fk",
           "tableFrom": "SessionOrg",
           "tableTo": "TeamMember",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "cascade"
         }
@@ -876,9 +800,7 @@
       "indexes": {
         "TeamMember_email_key": {
           "name": "TeamMember_email_key",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": true
         }
       },
@@ -944,9 +866,7 @@
       "indexes": {
         "User_email_key": {
           "name": "User_email_key",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": true
         }
       },
@@ -955,12 +875,8 @@
           "name": "User_id_UserMeta_user_id_fk",
           "tableFrom": "User",
           "tableTo": "UserMeta",
-          "columnsFrom": [
-            "id"
-          ],
-          "columnsTo": [
-            "user_id"
-          ],
+          "columnsFrom": ["id"],
+          "columnsTo": ["user_id"],
           "onDelete": "restrict",
           "onUpdate": "cascade"
         }
@@ -970,9 +886,7 @@
         "User_id_unique": {
           "name": "User_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       }
     },

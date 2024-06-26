@@ -6,13 +6,13 @@ import { FilterQuery, PaginationQuery } from "~/utils/types";
 type QueryErrors = UnknownException | Error;
 
 export interface SearchableRepo<TSearch = unknown> {
-	searchByQuery: (
-		params: Partial<PaginationQuery & FilterQuery>,
-	) => Effect.Effect<TSearch, QueryErrors, DatabaseClient>;
+  searchByQuery: (
+    params: Partial<PaginationQuery & FilterQuery>,
+  ) => Effect.Effect<TSearch, QueryErrors, DatabaseClient>;
 }
 
 export interface Countable {
-	count(
-		attributes?: Record<string, unknown>,
-	): Effect.Effect<number, QueryErrors, DatabaseClient>;
+  count(
+    attributes?: Record<string, unknown>,
+  ): Effect.Effect<number, QueryErrors, DatabaseClient>;
 }

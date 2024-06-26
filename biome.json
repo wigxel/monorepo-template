@@ -12,8 +12,8 @@
       "*/.next/**/*",
       "*/.vscode/**/*",
       "./apps/admin/src/routeTree.gen.ts",
-      "./apps/backend/.nitro/**",
-      "./apps/backend/.output/**",
+      "./apps/backend/.nitro/**/*",
+      "./apps/backend/.output/**/*",
       "./apps/mobile/ignite/**",
       "./apps/mobile/android/**",
       "./apps/mobile/ios/**",
@@ -38,5 +38,6 @@
         "noSvgWithoutTitle": "off"
       }
     }
-  }
+  },
+  "overrides": []
 }

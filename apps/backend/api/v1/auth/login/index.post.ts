@@ -23,5 +23,8 @@ export default defineEventHandler(async (event) => {
   const requirements = AppLive.pipe(Layer.provideMerge(CustomerLive));
   const program = login({ body });
 
-  return runPromise(event, Effect.scoped(Effect.provide(program, requirements)));
+  return runPromise(
+    event,
+    Effect.scoped(Effect.provide(program, requirements)),
+  );
 });

@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npx turbo type-check &&
-npx lint-staged
+pnpm format &&
+pnpm turbo type-check &&
+pnpm lint-staged

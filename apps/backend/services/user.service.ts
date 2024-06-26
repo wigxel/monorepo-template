@@ -5,28 +5,28 @@ import { searchByQueryRepo } from "~/services/search.service";
 const repo = new UserRepository();
 
 export function getUser(id: string) {
-	return Effect.gen(function* (_) {
-		const repo = yield* UserRepoLayer.Tag;
+  return Effect.gen(function* (_) {
+    const repo = yield* UserRepoLayer.Tag;
 
-		return yield* repo.getUserById(id);
-	});
+    return yield* repo.getUserById(id);
+  });
 }
 
 export function createCustomer(data: Record<string, unknown>) {
-	return Effect.gen(function* (_) {
-		const repo = yield* UserRepoLayer.Tag;
+  return Effect.gen(function* (_) {
+    const repo = yield* UserRepoLayer.Tag;
 
-		return repo.create(data);
-	});
+    return repo.create(data);
+  });
 }
 
 export function getAllUsers() {
-	return Effect.gen(function* (_) {
-		const users = yield* searchByQueryRepo(repo);
+  return Effect.gen(function* (_) {
+    const users = yield* searchByQueryRepo(repo);
 
-		return {
-			message: "Users fetched successfully",
-			data: users,
-		};
-	});
+    return {
+      message: "Users fetched successfully",
+      data: users,
+    };
+  });
 }

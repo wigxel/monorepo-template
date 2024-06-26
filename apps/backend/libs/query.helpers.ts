@@ -9,102 +9,102 @@ import { DrizzlePgDatabase, DatabaseClient } from "~/config/database";
 import { QueryError } from "~/config/exceptions";
 
 export const resolveQueryError = (err: unknown) => {
-	if (typeof err === "string") return new Error(err);
-	if (err instanceof Error) return err;
-	if (is(Object, err) && "message" in err) {
-		return new Error(err.message);
-	}
+  if (typeof err === "string") return new Error(err);
+  if (err instanceof Error) return err;
+  if (is(Object, err) && "message" in err) {
+    return new Error(err.message);
+  }
 
-	return new Error("Unknown error");
+  return new Error("Unknown error");
 };
 
 export function tryQuery<TValue>(fn: (a: unknown) => Promise<TValue>) {
-	return Effect.tryPromise<TValue, UnknownException | QueryError>({
-		try: fn,
-		catch(err) {
-			const error = resolveQueryError(err);
+  return Effect.tryPromise<TValue, UnknownException | QueryError>({
+    try: fn,
+    catch(err) {
+      const error = resolveQueryError(err);
 
-			if (error.message.includes("Can't reach database server"))
-				return new QueryError("Can't establish connection with database");
+      if (error.message.includes("Can't reach database server"))
+        return new QueryError("Can't establish connection with database");
 
-			return new UnknownException(error, error.message);
-		},
-	});
+      return new UnknownException(error, error.message);
+    },
+  });
 }
 
 export const notNil = <T>(e: T) =>
-	e === null ? Effect.fail(new Error("Record not found")) : Effect.succeed(e);
+  e === null ? Effect.fail(new Error("Record not found")) : Effect.succeed(e);
 
 export function tryQueryOption<TValue>(fn: (a: unknown) => Promise<TValue>) {
-	return tryQuery(fn).pipe(Effect.flatMap(Option.fromNullable));
+  return tryQuery(fn).pipe(Effect.flatMap(Option.fromNullable));
 }
 
 export const extractCount = <A extends { count: number }[]>(
-	effect: Effect.Effect<A>,
+  effect: Effect.Effect<A>,
 ) => {
-	return pipe(
-		effect,
-		Effect.flatMap(head),
-		Effect.map((e) => e.count),
-	);
+  return pipe(
+    effect,
+    Effect.flatMap(head),
+    Effect.map((e) => e.count),
+  );
 };
 
 export function queryEqualMap<T extends TableConfig>(
-	model: PgTableWithColumns<T>,
-	where?: Record<string, unknown>,
+  model: PgTableWithColumns<T>,
+  where?: Record<string, unknown>,
 ) {
-	const pairs = Object.entries(safeObj(where))
-		.filter(([column]) => model[column])
-		.map(([column, compareValue]) => {
-			return eq(model[column], compareValue);
-		});
+  const pairs = Object.entries(safeObj(where))
+    .filter(([column]) => model[column])
+    .map(([column, compareValue]) => {
+      return eq(model[column], compareValue);
+    });
 
-	if (pairs.length < 1) return undefined;
-	if (pairs.length === 1) return pairs[0] ?? undefined;
-	return and(...pairs);
+  if (pairs.length < 1) return undefined;
+  if (pairs.length === 1) return pairs[0] ?? undefined;
+  return and(...pairs);
 }
 
 export function runDrizzleQuery<T>(fn: (a: DrizzlePgDatabase) => Promise<T>) {
-	return DatabaseClient.pipe(
-		Effect.flatMap((db) => tryQuery(() => fn(db))),
-		Effect.map((a) => a as T),
-	);
+  return DatabaseClient.pipe(
+    Effect.flatMap((db) => tryQuery(() => fn(db))),
+    Effect.map((a) => a as T),
+  );
 }
 
 export function countWhere<T extends TableConfig>(
-	table: PgTableWithColumns<T>,
-	where?: Partial<Record<keyof T["columns"], unknown>>,
+  table: PgTableWithColumns<T>,
+  where?: Partial<Record<keyof T["columns"], unknown>>,
 ) {
-	return runDrizzleQuery((db) => {
-		return db
-			.select({ count: count() })
-			.from(table)
-			.where(queryEqualMap(table, where));
-	}).pipe(
-		Effect.tap((v) =>
-			Console.log(`What now?. where(${JSON.stringify(where)})`, v),
-		),
-		extractCount,
-	);
+  return runDrizzleQuery((db) => {
+    return db
+      .select({ count: count() })
+      .from(table)
+      .where(queryEqualMap(table, where));
+  }).pipe(
+    Effect.tap((v) =>
+      Console.log(`What now?. where(${JSON.stringify(where)})`, v),
+    ),
+    extractCount,
+  );
 }
 
 export function findFirstOrThrow<T extends TableConfig>(
-	table: PgTableWithColumns<T>,
-	where?: Partial<Record<keyof T["columns"], unknown>>,
+  table: PgTableWithColumns<T>,
+  where?: Partial<Record<keyof T["columns"], unknown>>,
 ) {
-	return runDrizzleQuery((db) => {
-		return db
-			.select({ count: count() })
-			.from(table)
-			.where(queryEqualMap(table, where));
-	}).pipe(Effect.flatMap(notNil));
+  return runDrizzleQuery((db) => {
+    return db
+      .select({ count: count() })
+      .from(table)
+      .where(queryEqualMap(table, where));
+  }).pipe(Effect.flatMap(notNil));
 }
 
 export function deleteWhere<T extends TableConfig>(
-	table: PgTableWithColumns<T>,
-	where?: Partial<Record<keyof T["columns"], unknown>>,
+  table: PgTableWithColumns<T>,
+  where?: Partial<Record<keyof T["columns"], unknown>>,
 ) {
-	return runDrizzleQuery((db) => {
-		return db.delete(table).where(queryEqualMap(table, where));
-	});
+  return runDrizzleQuery((db) => {
+    return db.delete(table).where(queryEqualMap(table, where));
+  });
 }

@@ -18,7 +18,7 @@ interface AuthUserImpl {
 export class AuthUser extends Context.Tag("AuthUser")<
   AuthUser,
   AuthUserImpl
->() { }
+>() {}
 
 export const AuthCustomerLive = Layer.succeed(
   AuthUser,
@@ -27,7 +27,7 @@ export const AuthCustomerLive = Layer.succeed(
       return Effect.suspend(() => {
         return Effect.scoped(
           Effect.provide(
-            Effect.gen(function*(_) {
+            Effect.gen(function* (_) {
               const repo = yield* _(UserRepo);
               yield* Effect.logDebug("CustomerAuth: Getting user record");
 
@@ -55,7 +55,7 @@ export const AuthTeamMemberLive = Layer.succeed(
   AuthUser.of({
     getUserRecord: ({ email }) => {
       return Effect.provide(
-        Effect.gen(function*(_) {
+        Effect.gen(function* (_) {
           const repo = yield* _(TeamRepo.Tag);
           yield* _(Effect.logDebug("TeamMemberAuth: Getting user record"));
           const user = yield* repo.findFirstOrThrow({ email });

@@ -3,5 +3,5 @@ import { AuthCustomerLive } from "~/layers/auth-user";
 import { CustomerSessionLive } from "~/layers/session";
 
 export const CustomerLive = AuthCustomerLive.pipe(
-	Layer.provideMerge(CustomerSessionLive),
+  Layer.provideMerge(CustomerSessionLive),
 );

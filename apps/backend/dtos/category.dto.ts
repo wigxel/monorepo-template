@@ -8,6 +8,6 @@ export type SelectCategory = z.infer<typeof selectCategorySchema>;
 export type CreateCategory = Omit<z.infer<typeof CategoryDto>, "id">;
 
 export const CategoryDto = z.object({
-	id: z.number(),
-	name: z.string().min(2, { message: "Category name is too short" }),
+  id: z.number(),
+  name: z.string().min(2, { message: "Category name is too short" }),
 });
